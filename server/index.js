@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const router = express.Router()
 const app = express()
 const bodyParser = require('body-parser')
+const cors = require('cors');
 const todo = require('./routes/todo')(router)
 const MONGO_URI = "mongodb://localhost:27017/vuetodo"
 
@@ -13,6 +14,9 @@ mongoose.connect(MONGO_URI, {useNewUrlParser:true}, err => {
   else console.log(`You have connected to ${MONGO_URI}`)
 })
 
+app.use(cors({
+  origin: 'http://localhost:8080'
+}))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
